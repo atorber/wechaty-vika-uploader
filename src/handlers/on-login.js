@@ -12,7 +12,7 @@ const { allConfig } = require('../common/configDb')
  */
 async function onLogin(user) {
   try {
-    console.log(`贴心助理${user}登录了`)
+    console.log(`当前账号${user}登录了`)
     await updatePanelVersion()
     await setQrCode('', 4)
     await sendError('')
