@@ -4,12 +4,16 @@
   "description": "Demo for wechaty-puppet-xp",
   "author": "atorber",
   "license": "Apache-2.0",
+  "engines": {
+    "node": ">=16",
+    "npm": ">=7"
+  },
   "dependencies": {
     "@vikadata/vika": "^1.0.5",
     "airtable": "^0.11.1",
+    "file-box": "^1.4.12",
     "flow": "^0.2.3",
     "fs": "^0.0.1-security",
-    "memory-card": "^1.0.3",
     "moment": "^2.29.1",
     "mqtt": "^4.2.8",
     "node-gyp": "^8.2.0",
@@ -18,9 +22,9 @@
     "request": "^2.88.2",
     "request-promise": "^4.2.6",
     "uuid": "^8.3.2",
-    "wechaty": "^0.69.45",
-    "wechaty-puppet-padlocal": "^0.4.2",
-    "wechaty-puppet-xp": "^0.7.21"
+    "wechaty": "^0.68.1",
+    "wechaty-puppet": "^1.10.2",
+    "wechaty-puppet-padlocal": "^0.4.2"
   },
   "devDependencies": {
     "@chatie/eslint-config": "^1.0.4",
@@ -29,8 +33,7 @@
     "check-node-version": "^4.2.1",
     "is-pr": "^2.0.0",
     "ts-node": "^9.1.1",
-    "typescript": "^4.1.5",
-    "wechaty-puppet-mock": "^1.10.2"
+    "typescript": "^4.1.5"
   },
   "scripts": {
     "start": "node main.js",

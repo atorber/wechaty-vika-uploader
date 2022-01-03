@@ -29,11 +29,13 @@ const { Device } = require('./mp-chat/bot')
 const qrcodeTerminal = require('qrcode-terminal');
 const { PuppetXp } = require('wechaty-puppet-xp')
 
+const config = require('./config')
+
 // 维格表相关配置
 const {
     VikaBot
 } = require('./mp-chat/vika')
-const VIKA_TOKEN = '' // 维格表token
+const VIKA_TOKEN = config.vika.token // 维格表token
 let vika = new VikaBot(VIKA_TOKEN)
 
 let secret
@@ -41,16 +43,18 @@ let reportList
 let device
 
 // 机器人相关配置
-const name = 'wechaty-puppet-padlocal';
-const token = process.env.token || ''// 瓦力
-
-const puppet = new PuppetPadlocal({
-    token,
-});
+// const bot = new Wechaty({
+//     name: 'wechaty-puppet-padlocal',
+//     puppet: new PuppetPadlocal({
+//         token: process.env.token || config.wechaty.padlocal_token // 瓦力
+//     })
+// });
 
 const bot = new Wechaty({
-    name,
-    puppet,
+    puppet: 'wechaty-puppet-service',
+    puppetOptions: {
+        token: config.wechaty.wecom_token
+    }
 });
 
 function onScan(qrcode, status) {
