@@ -27,21 +27,16 @@ const moment = require('moment');
 const { Device } = require('../mp-chat/bot')
 
 const qrcodeTerminal = require('qrcode-terminal');
-const { PuppetXp } = require('wechaty-puppet-xp')
+// const { PuppetXp } = require('wechaty-puppet-xp')
 
-const { Device } = require('./mp-chat/bot')
-const { Contact, log, Message, ScanStatus, WechatyBuilder, UrlLink, MiniProgram, MessageType
-} = require("wechaty");
-const qrcodeTerminal = require('qrcode-terminal');
-const { PuppetXp } = require('wechaty-puppet-xp')
-const moment = require('moment')
+const { VIKA_TOKEN } = require('./config')
 
-
-// 维格表相关配置
 const {
     VikaBot
-} = require('./mp-chat/vika')
-const VIKA_TOKEN = '替换为维格表token'
+} = require('../mp-chat/vika')
+
+// 维格表相关配置
+// const VIKA_TOKEN = '替换为维格表token'
 let vika = new VikaBot(VIKA_TOKEN)
 
 let secret
@@ -180,7 +175,7 @@ async function main() {
 
     const username = secret.mqtt.username
     const password = secret.mqtt.password
-    const clientId = secret.mqtt.DeviceKey
+    const clientId = secret.mqtt.clientid
     const host = secret.mqtt.host
     const port = 1883
 
@@ -191,14 +186,14 @@ async function main() {
     // bot = new Wechaty({
     //     name: 'wechaty-puppet-padlocal',
     //     puppet: new PuppetPadlocal({
-    //         token: process.env.token || config.wechaty.padlocal_token // 瓦力
+    //         token: process.env.token || secret.wechaty.padlocal // 瓦力
     //     })
     // });
 
     bot = new Wechaty({
         puppet: 'wechaty-puppet-service',
         puppetOptions: {
-            token: botConfig.wechaty.wecom_token
+            token: secret.wechaty.wecom
         }
     });
 
@@ -221,6 +216,3 @@ async function main() {
 
 // 运行主程序
 main()
-
-
-

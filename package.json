@@ -45,5 +45,10 @@
     "logs": "pm2 logs",
     "restart": "pm2 restart wxtool.js",
     "stop": "pm2 stop wxtool.js"
+  },
+  "git": {
+    "scripts": {
+      "pre-push": "npx git-scripts-pre-push"
+    }
   }
 }
