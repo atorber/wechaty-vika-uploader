@@ -24,38 +24,30 @@ const { PuppetPadlocal } = require('wechaty-puppet-padlocal');
 const { FileBox } = require('file-box')
 const moment = require('moment');
 
-const { Device } = require('./mp-chat/bot')
+const { Device } = require('../mp-chat/bot')
 
 const qrcodeTerminal = require('qrcode-terminal');
 const { PuppetXp } = require('wechaty-puppet-xp')
 
-const config = require('./config')
+const { Device } = require('./mp-chat/bot')
+const { Contact, log, Message, ScanStatus, WechatyBuilder, UrlLink, MiniProgram, MessageType
+} = require("wechaty");
+const qrcodeTerminal = require('qrcode-terminal');
+const { PuppetXp } = require('wechaty-puppet-xp')
+const moment = require('moment')
+
 
 // 维格表相关配置
 const {
     VikaBot
 } = require('./mp-chat/vika')
-const VIKA_TOKEN = config.vika.token // 维格表token
+const VIKA_TOKEN = '替换为维格表token'
 let vika = new VikaBot(VIKA_TOKEN)
 
 let secret
 let reportList
 let device
-
-// 机器人相关配置
-// const bot = new Wechaty({
-//     name: 'wechaty-puppet-padlocal',
-//     puppet: new PuppetPadlocal({
-//         token: process.env.token || config.wechaty.padlocal_token // 瓦力
-//     })
-// });
-
-const bot = new Wechaty({
-    puppet: 'wechaty-puppet-service',
-    puppetOptions: {
-        token: config.wechaty.wecom_token
-    }
-});
+let bot
 
 function onScan(qrcode, status) {
     if (status === ScanStatus.Waiting || status === ScanStatus.Timeout) {
@@ -195,6 +187,21 @@ async function main() {
     device = new Device(host, port, username, password, clientId)
     device.init()
 
+    // 机器人相关配置
+    // bot = new Wechaty({
+    //     name: 'wechaty-puppet-padlocal',
+    //     puppet: new PuppetPadlocal({
+    //         token: process.env.token || config.wechaty.padlocal_token // 瓦力
+    //     })
+    // });
+
+    bot = new Wechaty({
+        puppet: 'wechaty-puppet-service',
+        puppetOptions: {
+            token: botConfig.wechaty.wecom_token
+        }
+    });
+
     bot
         .on("scan", onScan)
         .on("login", onLogin)
@@ -214,4 +221,6 @@ async function main() {
 
 // 运行主程序
 main()
+
+
 
