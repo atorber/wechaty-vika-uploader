@@ -1,6 +1,6 @@
-const { Vika } = require('@vikadata/vika')
-const moment = require('moment')
-const { v4 } = require('uuid')
+import { Vika } from '@vikadata/vika'
+import moment from 'moment'
+import { v4 } from 'uuid'
 
 class VikaBot {
   constructor(token) {
@@ -84,18 +84,18 @@ class VikaBot {
     return this.botRecords
   }
 
-  async addChatRecord(msg) {
+  async addChatRecord(msg, ChatRecord) {
+    // console.debug(JSON.stringify(msg))
     const talker = msg.talker()
+    // console.debug(talker)
     const to = msg.to()
     const type = msg.type()
     let text = msg.text()
     let room = msg.room() || {}
-    room = JSON.parse(JSON.stringify(room))
-
-    if (room && room.id) {
-      delete room._payload.memberIdList
+    let topic = ''
+    if (room) {
+      topic = await room.topic()
     }
-
     let curTime = this.getCurTime()
     let reqId = v4()
     let timeHms = moment(curTime).format('YYYY-MM-DD HH:mm:ss')
@@ -104,15 +104,16 @@ class VikaBot {
         fields: {
           ID: reqId,
           时间: timeHms,
-          来自: talker._payload ? talker._payload.name || '我' : '--',
-          接收: room.id ? room._payload.topic : '单聊',
+          来自: talker.name(),
+          接收: topic || '单聊',
           内容: text,
           发送者ID: talker.id != 'null' ? talker.id : '--',
           接收方ID: room.id ? room.id : '--',
         },
       },
     ]
-    const datasheet = this.vika.datasheet(this.sysTables.ChatRecord)
+    // console.debug(records)
+    const datasheet = this.vika.datasheet(ChatRecord)
     datasheet.records.create(records).then((response) => {
       if (response.success) {
         console.log(response.code)
@@ -141,8 +142,8 @@ class VikaBot {
     }
   }
 
-  async updateBot(key, value) {
-    const datasheet = this.vika.datasheet(this.sysTables.bot)
+  async updateBot(key, value, bot) {
+    const datasheet = this.vika.datasheet(bot)
     datasheet.records
       .update([
         {
@@ -188,7 +189,11 @@ class VikaBot {
       console.debug('缺失必须的表！！！！！！', Object.keys(this.sysTables))
     }
 
-    return { secret: this.secret, reportList: this.reportList }
+    return {
+      spaceId: this.spaceId,
+      sysTables: this.sysTables,
+      botRecords: this.botRecords,
+    }
   }
 
   getCurTime() {
@@ -201,6 +206,6 @@ class VikaBot {
   }
 }
 
-module.exports = {
-  VikaBot,
-}
+export { VikaBot }
+
+export default VikaBot
