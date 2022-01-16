@@ -1,7 +1,7 @@
 {
-  "name": "wechaty-mqtt-link1.0",
-  "version": "0.1.2",
-  "description": "Demo for wechaty-puppet-xp",
+  "name": "wechaty-vika-link",
+  "version": "0.1.0",
+  "description": "Vika link for wechaty",
   "author": "atorber",
   "license": "Apache-2.0",
   "engines": {
@@ -14,35 +14,27 @@
     "flow": "^0.2.3",
     "fs": "^0.0.1-security",
     "moment": "^2.29.1",
-    "mqtt": "^4.2.8",
+    "nedb": "^1.8.0",
     "node-gyp": "^8.2.0",
-    "protobufjs": "^6.11.2",
     "qrcode-terminal": "^0.12.0",
     "request": "^2.88.2",
     "request-promise": "^4.2.6",
-    "uuid": "^8.3.2",
-    "wechaty": "^0.68.1",
-    "wechaty-puppet-padlocal": "^0.4.2"
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
-    "@chatie/eslint-config": "^1.0.4",
-    "@chatie/git-scripts": "^0.6.2",
-    "@chatie/tsconfig": "^4.6.2",
-    "check-node-version": "^4.2.1",
-    "is-pr": "^2.0.0",
-    "ts-node": "^9.1.1",
-    "typescript": "^4.1.5"
+    "babel-eslint": "^10.1.0",
+    "eslint": "^7.4.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "prettier": "^2.0.5",
+    "wechaty": "^1.10.4",
+    "wechaty-plugin-contrib": "~1.0.18",
+    "wechaty-puppet-wechat": "~1.10.4"
   },
   "scripts": {
-    "start": "node main.js",
-    "start:mp": "node index.js",
-    "xp": "node xp.js",
-    "gm": "node wxtool.js",
-    "start:pm2": "pm2 start wxtool.js",
-    "runlist": "pm2 list",
-    "logs": "pm2 logs",
-    "restart": "pm2 restart wxtool.js",
-    "stop": "pm2 stop wxtool.js"
+    "test": "node test/index.js",
+    "release": "verpub publish",
+    "release:dry": "verpub --dry-run"
   },
   "git": {
     "scripts": {
