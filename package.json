@@ -39,6 +39,20 @@
     "release": "verpub publish",
     "release:dry": "verpub --dry-run"
   },
+  "keywords": [
+    "wechaty",
+    "chatbot",
+    "bot",
+    "vika"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/atorber/wechaty-vika-link.git"
+  },
+  "publishConfig": {
+    "access": "public",
+    "tag": "next"
+  },
   "git": {
     "scripts": {
       "pre-push": "npx git-scripts-pre-push"
