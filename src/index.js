@@ -1,7 +1,7 @@
-const { addVikaConfig } = require('./common/configDb')
-const onMessage = require('./handlers/on-message')
+import { addVikaConfig } from './common/configDb.js'
+import onMessage from './handlers/on-message.js'
 
-module.exports = function WechatyVikaPlugin(config = { token, reportList }) {
+function WechatyVikaPlugin(config = { token, reportList }) {
   const initConfig = {
     token: config.token,
     reportList: config.reportList || [],
@@ -11,3 +11,7 @@ module.exports = function WechatyVikaPlugin(config = { token, reportList }) {
     bot.on('message', onMessage)
   }
 }
+
+export { WechatyVikaPlugin }
+
+export default WechatyVikaPlugin

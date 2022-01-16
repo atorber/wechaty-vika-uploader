@@ -1,22 +1,32 @@
-const { Contact, log, Message, ScanStatus, WechatyBuilder, UrlLink, MiniProgram, MessageType } = require('wechaty')
-const WechatyVikaPlugin = require('../src/index')
+import { Wechaty, ScanStatus, log } from 'wechaty'
 
-// const token = 'padtoken'
-const name = 'wechat-vika'
-// const puppet = new PuppetPadlocal({
-//     token,
-// })
-const bot = WechatyBuilder.build({
-  name, // generate xxxx.memory-card.json and save login data for the next login
-  // puppet,
-  puppet: 'wechaty-puppet-wechat',
+import qrcodeTerminal from 'qrcode-terminal'
+// import 'dotenv/config.js'
+
+import WechatyVikaPlugin from '../src/index.js'
+
+const vikaToken = '替换为自己的维格表token'
+const token = '替换为自己的token'
+const puppet = 'wechaty-puppet-padlocal'
+const bot = new Wechaty({
+  puppet,
+  puppetOptions: {
+    token,
+  },
 })
-bot
-  .use(
-    WechatyVikaPlugin({
-      token: '替换为自己的维格表token',
-      reportList: [],
-    })
-  )
-  .start()
+
+async function onMessage(msg) {
+  log.info('StarterBot', msg.toString())
+  // console.debug(msg)
+}
+
+bot.use(
+  WechatyVikaPlugin({
+    token: vikaToken,
+    reportList: [],
+  })
+)
+  .on('message', onMessage)
+
+bot.start()
   .catch((e) => console.error(e))
