@@ -6,7 +6,7 @@ wechaty <= v0.6.9
 
 ## 快速入门
 
-1. 到维格表官网（https://vika.cn/）注册维格表账号
+1. 到维格表官网（https://vika.cn/) 注册维格表账号
 2. 创建一个名字为 mp-chatbot 的空间，导入初始化表格，将本项目 database 目录下的四个表格导入到该空间
 
 ![vika](./doc/images/vika.png)
