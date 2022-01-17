@@ -98,17 +98,20 @@ class VikaBot {
     }
     let curTime = this.getCurTime()
     let reqId = v4()
+    let ID = msg.id
     let timeHms = moment(curTime).format('YYYY-MM-DD HH:mm:ss')
     let records = [
       {
         fields: {
-          ID: reqId,
+          ID: ID,
           时间: timeHms,
           来自: talker.name(),
           接收: topic || '单聊',
           内容: text,
           发送者ID: talker.id != 'null' ? talker.id : '--',
           接收方ID: room.id ? room.id : '--',
+          消息类型: msg.type(),
+          附件: [],
         },
       },
     ]
