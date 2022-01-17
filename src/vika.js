@@ -99,7 +99,13 @@ class VikaBot {
     let curTime = this.getCurTime()
     let reqId = v4()
     let ID = msg.id
+    let msg_type = msg.type()
     let timeHms = moment(curTime).format('YYYY-MM-DD HH:mm:ss')
+    let files = []
+    if (msg_type == '123') {
+      let file = await this.upload(ChatRecord, 'url')
+      files.push(file)
+    }
     let records = [
       {
         fields: {
@@ -110,8 +116,8 @@ class VikaBot {
           内容: text,
           发送者ID: talker.id != 'null' ? talker.id : '--',
           接收方ID: room.id ? room.id : '--',
-          消息类型: msg.type(),
-          附件: [],
+          消息类型: msg_type,
+          附件: files,
         },
       },
     ]
@@ -124,6 +130,26 @@ class VikaBot {
         console.error(response)
       }
     })
+  }
+
+  async upload(url, ChatRecord,) {
+    const datasheet = this.vika.datasheet(ChatRecord);
+    // node 环境中
+    const file = fs.createReadStream(url)
+
+    try {
+      const resp = await datasheet.upload(file)
+      if (resp.success) {
+        const uploaded_attachments = resp.data
+        // await vika.datasheet('dstWUHwzTHd2YQaXEE').records.create([{
+        //   'title': '标题 A',
+        //   'photos': [uploaded_attachments]
+        // }])
+        return uploaded_attachments
+      }
+    } catch (error) {
+      console.error(error)
+    }
   }
 
   async addBotKey(key) {
