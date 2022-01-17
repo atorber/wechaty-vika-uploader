@@ -155,6 +155,12 @@ class VikaBot {
         //   'title': '标题 A',
         //   'photos': [uploaded_attachments]
         // }])
+        fs.unlink(file_payload.cloudPath, function (error) {
+          if (error) {
+            console.debug(error)
+          }
+          console.debug('文件删除成功', file_payload.cloudPath)
+        })
         return uploaded_attachments
       }
     } catch (error) {
