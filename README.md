@@ -19,6 +19,10 @@ wechaty <= v0.6.9
 
 5. 运行node examples/ding-dong-bot.js
 
+## NPM方式安装
+
+该插件已发布为npm包，运行 npm install wechaty-vika-link 安装，使用demo参考 examples/ripe-npm.js
+
 ## 效果展示
 
 ![vika](./doc/images/demo.png)
