@@ -18,6 +18,9 @@ const bot = new Wechaty({
 async function onMessage(msg) {
   log.info('StarterBot', msg.toString())
   // console.debug(msg)
+  if (msg.text() == 'ding') {
+    msg.say('dong')
+  }
 }
 
 bot

@@ -1,6 +1,6 @@
 {
   "name": "wechaty-vika-link",
-  "version": "0.10.1",
+  "version": "0.10.2",
   "description": "Vika link for wechaty",
   "main": "src/index.js",
   "files": [
@@ -47,6 +47,7 @@
   },
   "scripts": {
     "test": "node test/index.js",
+    "ding-dong-bot":"node examples/ding-dong-bot.js",
     "release": "verpub publish",
     "release:dry": "verpub --dry-run"
   },
