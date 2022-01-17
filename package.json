@@ -1,6 +1,6 @@
 {
   "name": "wechaty-vika-link",
-  "version": "0.10.0",
+  "version": "0.10.1",
   "description": "Vika link for wechaty",
   "main": "src/index.js",
   "files": [
@@ -62,7 +62,7 @@
   },
   "publishConfig": {
     "access": "public",
-    "tag": "next"
+    "tag": "latest"
   },
   "git": {
     "scripts": {
