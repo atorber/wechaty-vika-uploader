@@ -19,7 +19,7 @@ class VikaBot {
     const to = msg.to()
     const type = msg.type()
     let text = msg_type == 'Text' ? msg.text() : msg_type
-    let room = msg.room() || {}
+    let room = msg.room()
     let topic = ''
     if (room) {
       topic = await room.topic()
