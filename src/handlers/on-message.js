@@ -1,4 +1,3 @@
-import { getVikaConfig } from '../common/configDb.js'
 import { VikaBot } from '../vika.js'
 import { Wechaty, ScanStatus, log, Message } from 'wechaty'
 import fs from 'fs'
@@ -7,13 +6,12 @@ let msgList = []
 
 async function onMessage(message) {
   // console.debug(message)
-
   try {
-    const config = await getVikaConfig()
-    // console.debug(config)
-    const { token, reportList, vikaConfig } = config
+    // const config = await getVikaConfig()
+    // // console.debug(config)
+    // const { token, reportList, vikaConfig } = config
     // 维格表相关配置
-    let vika = new VikaBot(token)
+    let vika = new VikaBot()
 
     let file_payload = {}
     let uploaded_attachments = ''
@@ -46,7 +44,7 @@ async function onMessage(message) {
           cloudPath: 'images/' + hdImage.name,
           fileContent: hdImageData
         }
-        uploaded_attachments = await vika.upload(file_payload, vikaConfig.sysTables.ChatRecord)
+        uploaded_attachments = await vika.upload(file_payload)
         // 原图
         const artworkImage = await messageImage.artwork();
         const artworkImageData = await artworkImage.toBuffer();
@@ -71,7 +69,7 @@ async function onMessage(message) {
           fileContent: urlThumbImageData
         }
 
-        uploaded_attachments = await vika.upload(file_payload, vikaConfig.sysTables.ChatRecord)
+        uploaded_attachments = await vika.upload(file_payload)
 
         break;
 
@@ -108,7 +106,7 @@ async function onMessage(message) {
           cloudPath: 'images/' + msgId + '.' + audioFileBox.name.split('.').pop(),
           fileContent: audioData
         }
-        uploaded_attachments = await vika.upload(file_payload, vikaConfig.sysTables.ChatRecord)
+        uploaded_attachments = await vika.upload(file_payload)
         break;
 
       // 视频消息
@@ -123,7 +121,7 @@ async function onMessage(message) {
           cloudPath: 'images/' + msgId + '.' + videoFileBox.name.split('.').pop(),
           fileContent: videoData
         }
-        uploaded_attachments = await vika.upload(file_payload, vikaConfig.sysTables.ChatRecord)
+        uploaded_attachments = await vika.upload(file_payload)
 
         break;
 
@@ -139,7 +137,7 @@ async function onMessage(message) {
           cloudPath: 'images/' + msgId + '.' + emotionFile.name.split('.').pop(),
           fileContent: emotionData
         }
-        uploaded_attachments = await vika.upload(file_payload, vikaConfig.sysTables.ChatRecord)
+        uploaded_attachments = await vika.upload(file_payload)
 
         break;
 
@@ -155,7 +153,7 @@ async function onMessage(message) {
           cloudPath: 'images/' + msgId + '.' + attachFileBox.name.split('.').pop(),
           fileContent: attachData
         }
-        uploaded_attachments = await vika.upload(file_payload, vikaConfig.sysTables.ChatRecord)
+        uploaded_attachments = await vika.upload(file_payload)
 
         break;
 
@@ -165,11 +163,8 @@ async function onMessage(message) {
     }
 
     // console.debug(message)
-    let room = message.room()
+    vika.addChatRecord(message, uploaded_attachments, msg_type)
 
-    if (!room || (reportList.length && reportList.indexOf(room.id) != -1) || reportList.length == 0) {
-      vika.addChatRecord(message, vikaConfig.sysTables.ChatRecord, uploaded_attachments, msg_type)
-    }
   } catch (e) {
     console.log('监听消息失败', e)
   }

@@ -26,3 +26,14 @@ wechaty <= v0.6.9
 ## 效果展示
 
 ![vika](./doc/images/demo.png)
+
+## >0.11.0运行
+
+```
+export WECHATY_LOG=verbose
+export WECHATY_PUPPET=wechaty-puppet-padlocal
+export WECHATY_PUPPET_PADLOCAL_TOKEN="替换为wechaty-token"
+export VIKA_TOKEN="替换为维格表token"
+export VIKA_DATASHEETID="替换为维格表id"
+npm run test
+```

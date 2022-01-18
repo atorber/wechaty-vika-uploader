@@ -5,15 +5,7 @@ import qrcodeTerminal from 'qrcode-terminal'
 
 import WechatyVikaPlugin from 'wechaty-vika-link'
 
-const vikaToken = '替换为自己的维格表token'
-const token = '替换为自己的token'
-const puppet = 'wechaty-puppet-padlocal'
-const bot = new Wechaty({
-  puppet,
-  puppetOptions: {
-    token,
-  },
-})
+const bot = new Wechaty()
 
 async function onMessage(msg) {
   log.info('StarterBot', msg.toString())

@@ -1,6 +1,6 @@
 {
   "name": "wechaty-vika-link",
-  "version": "0.10.2",
+  "version": "0.11.0",
   "description": "Vika link for wechaty",
   "main": "src/index.js",
   "files": [
@@ -28,8 +28,7 @@
     "node-gyp": "^8.2.0",
     "request": "^2.88.2",
     "request-promise": "^4.2.6",
-    "stream": "^0.0.2",
-    "uuid": "^8.3.2"
+    "stream": "^0.0.2"
   },
   "devDependencies": {
     "babel-eslint": "^10.1.0",
@@ -47,10 +46,10 @@
   },
   "scripts": {
     "test": "node test/index.js",
-    "ding-dong-bot":"node examples/ding-dong-bot.js",
+    "ding-dong-bot": "node examples/ding-dong-bot.js",
     "release": "verpub publish",
     "release:dry": "verpub --dry-run",
-    "docker":"docker build . -t vika-bot"
+    "docker": "docker build . -t vika-bot"
   },
   "keywords": [
     "wechaty",
@@ -64,7 +63,7 @@
   },
   "publishConfig": {
     "access": "public",
-    "tag": "latest"
+    "tag": "next"
   },
   "git": {
     "scripts": {
