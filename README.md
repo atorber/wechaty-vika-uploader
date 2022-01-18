@@ -7,7 +7,7 @@ wechaty <= v0.6.9
 ## 快速入门
 
 1. 到维格表官网（https://vika.cn/) 注册维格表账号
-2. 创建一个名字为 mp-chatbot 的空间，导入初始化表格，将本项目 database 目录下的四个表格导入到该空间
+2. 创建一个名字为 mp-chatbot 的空间，导入初始化表格，将本项目 database 目录下的ChatRecord.xlsx表格导入到该空间
 
 ![vika](./doc/images/vika.png)
 
@@ -15,9 +15,16 @@ wechaty <= v0.6.9
 
 ![vika](./doc/images/vika_token.png)
 
-4. 在examples/ding-dong-bot.js中配置，示例中使用了padlocal，可以自行更换为其他puppet
+4. 配置环境变量，示例中使用了padlocal，可以自行更换为其他puppet
 
-5. 运行node examples/ding-dong-bot.js
+```
+export WECHATY_PUPPET=wechaty-puppet-padlocal
+export WECHATY_PUPPET_PADLOCAL_TOKEN="替换为padloac token"
+export VIKA_TOKEN="替换为维格表token"
+export VIKA_DATASHEETID="替换为维格表id"
+```
+
+5. 运行 npm run ding-dong-bot
 
 ## NPM方式安装
 
@@ -26,14 +33,3 @@ wechaty <= v0.6.9
 ## 效果展示
 
 ![vika](./doc/images/demo.png)
-
-## >0.11.0运行
-
-```
-export WECHATY_LOG=verbose
-export WECHATY_PUPPET=wechaty-puppet-padlocal
-export WECHATY_PUPPET_PADLOCAL_TOKEN="替换为wechaty-token"
-export VIKA_TOKEN="替换为维格表token"
-export VIKA_DATASHEETID="替换为维格表id"
-npm run test
-```
