@@ -49,7 +49,8 @@
     "test": "node test/index.js",
     "ding-dong-bot":"node examples/ding-dong-bot.js",
     "release": "verpub publish",
-    "release:dry": "verpub --dry-run"
+    "release:dry": "verpub --dry-run",
+    "docker":"docker build . -t vika-bot"
   },
   "keywords": [
     "wechaty",
