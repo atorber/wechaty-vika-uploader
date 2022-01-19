@@ -59,17 +59,8 @@ class VikaBot {
     }).catch(err => { console.error(err) })
   }
 
-  async upload(file_payload) {
+  async upload(file) {
     const datasheet = this.vika.datasheet(this.datasheetId);
-    // node 环境中
-    let ws = fs.createWriteStream(file_payload.cloudPath)
-    ws.write(file_payload.fileContent)
-    ws.end()
-
-    await wait(500)
-
-    const file = fs.createReadStream(file_payload.cloudPath)
-
     try {
       const resp = await datasheet.upload(file)
       if (resp.success) {
@@ -79,12 +70,6 @@ class VikaBot {
         //   'title': '标题 A',
         //   'photos': [uploaded_attachments]
         // }])
-        fs.unlink(file_payload.cloudPath, function (error) {
-          if (error) {
-            console.debug(error)
-          }
-          console.debug('文件删除成功', file_payload.cloudPath)
-        })
         return uploaded_attachments
       }
     } catch (error) {

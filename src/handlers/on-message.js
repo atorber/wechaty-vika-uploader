@@ -1,8 +1,12 @@
 import { VikaBot } from '../vika.js'
 import { Wechaty, ScanStatus, log, Message } from 'wechaty'
 import fs from 'fs'
+import { FileBox } from 'file-box'
+import console from 'console'
 
 let msgList = []
+
+let wait = ms => new Promise(resolve => setTimeout(resolve, ms));
 
 async function onMessage(message) {
   // console.debug(message)
@@ -17,6 +21,10 @@ async function onMessage(message) {
     let uploaded_attachments = ''
     let msg_type = 'Unknown'
     let msgId = message.id
+    let file = ''
+    let fileDate = ''
+    let filePath = ''
+
     switch (message.type()) {
       // 文本消息
       case Message.Type.Text:
@@ -27,32 +35,8 @@ async function onMessage(message) {
       // 图片消息
       case Message.Type.Image:
         msg_type = 'Image'
-        const messageImage = await message.toImage();
+        file = await message.toImage().artwork()
 
-        // 缩略图
-        const thumbImage = await messageImage.thumbnail();
-        const thumbImageData = await thumbImage.toBuffer();
-        // thumbImageData: 缩略图图片二进制数据
-
-        // console.debug(thumbImageData)
-
-        // 大图
-        const hdImage = await messageImage.hd();
-        const hdImageData = await hdImage.toBuffer();
-        // 大图图片二进制数据
-        file_payload = {
-          cloudPath: 'images/' + hdImage.name,
-          fileContent: hdImageData
-        }
-        uploaded_attachments = await vika.upload(file_payload)
-        // 原图
-        const artworkImage = await messageImage.artwork();
-        const artworkImageData = await artworkImage.toBuffer();
-        // artworkImageData: 原图图片二进制数据
-        // file_payload = {
-        //   cloudPath: artworkImage.name,
-        //   fileContent: artworkImageData
-        // }
         break;
 
       // 链接卡片消息
@@ -61,16 +45,7 @@ async function onMessage(message) {
         const urlLink = await message.toUrlLink();
         // urlLink: 链接主要数据：包括 title，URL，description
 
-        const urlThumbImage = await message.toFileBox();
-        const urlThumbImageData = await urlThumbImage.toBuffer();
-        // urlThumbImageData: 链接的缩略图二进制数据
-        file_payload = {
-          cloudPath: 'images/' + msgId + '.' + urlThumbImage.name.split('.').pop(),
-          fileContent: urlThumbImageData
-        }
-
-        uploaded_attachments = await vika.upload(file_payload)
-
+        file = await message.toFileBox();
         break;
 
       // 小程序卡片消息
@@ -97,69 +72,46 @@ async function onMessage(message) {
       // 语音消息
       case Message.Type.Audio:
         msg_type = 'Audio'
+        file = await message.toFileBox();
 
-        const audioFileBox = await message.toFileBox();
-
-        const audioData = await audioFileBox.toBuffer();
-        // audioData: silk 格式的语音文件二进制数据
-        file_payload = {
-          cloudPath: 'images/' + msgId + '.' + audioFileBox.name.split('.').pop(),
-          fileContent: audioData
-        }
-        uploaded_attachments = await vika.upload(file_payload)
         break;
 
       // 视频消息
       case Message.Type.Video:
         msg_type = 'Video'
 
-        const videoFileBox = await message.toFileBox();
-
-        const videoData = await videoFileBox.toBuffer();
-        // videoData: 视频文件二进制数
-        file_payload = {
-          cloudPath: 'images/' + msgId + '.' + videoFileBox.name.split('.').pop(),
-          fileContent: videoData
-        }
-        uploaded_attachments = await vika.upload(file_payload)
-
+        file = await message.toFileBox();
         break;
 
       // 动图表情消息
       case Message.Type.Emoticon:
         msg_type = 'Emoticon'
-
-        const emotionFile = await message.toFileBox();
-
-        const emotionData = await emotionFile.toBuffer();
-        // emotionData: 动图 Gif文件 二进制数据
-        file_payload = {
-          cloudPath: 'images/' + msgId + '.' + emotionFile.name.split('.').pop(),
-          fileContent: emotionData
-        }
-        uploaded_attachments = await vika.upload(file_payload)
+        file = await message.toFileBox();
 
         break;
 
       // 文件消息
       case Message.Type.Attachment:
         msg_type = 'Attachment'
-
-        const attachFileBox = await message.toFileBox();
-
-        const attachData = await attachFileBox.toBuffer();
-        // attachData: 文件二进制数据
-        file_payload = {
-          cloudPath: 'images/' + msgId + '.' + attachFileBox.name.split('.').pop(),
-          fileContent: attachData
-        }
-        uploaded_attachments = await vika.upload(file_payload)
+        file = await message.toFileBox();
 
         break;
 
       // 其他消息
       default:
         break;
+    }
+
+    if (file) {
+      filePath = 'images/' + msgId + '.' + file.name.split('.').pop()
+      const writeStream = fs.createWriteStream(filePath)
+      await file.pipe(writeStream)
+      await wait(200)
+      let readerStream = fs.createReadStream(filePath);
+      uploaded_attachments = await vika.upload(readerStream)
+      fs.unlink(filePath, (err) => {
+        console.debug(filePath, '已删除')
+      })
     }
 
     // console.debug(message)
