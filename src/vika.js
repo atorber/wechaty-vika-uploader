@@ -38,11 +38,11 @@ class VikaBot {
         fields: {
           ID: ID,
           时间: timeHms,
-          来自: talker.name(),
+          来自: talker ? talker.name() : '未知',
           接收: topic || '单聊',
           内容: text,
           发送者ID: talker.id != 'null' ? talker.id : '--',
-          接收方ID: room.id ? room.id : '--',
+          接收方ID: room && room.id ? room.id : '--',
           消息类型: msg_type,
           附件: files,
         },
