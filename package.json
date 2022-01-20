@@ -21,35 +21,23 @@
   "dependencies": {
     "@vikadata/vika": "^1.0.5",
     "file-box": "^1.4.12",
-    "flow": "^0.2.3",
     "fs": "^0.0.1-security",
     "moment": "^2.29.1",
-    "nedb": "^1.8.0",
-    "node-gyp": "^8.2.0",
-    "request": "^2.88.2",
-    "request-promise": "^4.2.6",
-    "stream": "^0.0.2"
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
-    "babel-eslint": "^10.1.0",
-    "dotenv": "^10.0.0",
-    "eslint": "^7.4.0",
-    "eslint-config-prettier": "^6.11.0",
-    "eslint-plugin-prettier": "^3.1.4",
-    "prettier": "^2.0.5",
     "qrcode-terminal": "^0.12.0",
     "wechaty": "^0.73.8",
     "wechaty-plugin-contrib": "^0.14.23",
     "wechaty-puppet": "^0.47.8",
-    "wechaty-puppet-padlocal": "^0.4.2",
-    "wechaty-vika-link": "^0.11.0"
+    "wechaty-puppet-padlocal": "^0.4.2"
   },
   "scripts": {
     "test": "node test/index.js",
     "ding-dong-bot": "node examples/ding-dong-bot.js",
     "release": "verpub publish",
     "release:dry": "verpub --dry-run",
-    "docker": "docker build . -t vika-bot:v1"
+    "docker": "docker build . -t vika-bot:v2"
   },
   "keywords": [
     "wechaty",

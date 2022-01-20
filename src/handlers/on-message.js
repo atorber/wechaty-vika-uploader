@@ -1,7 +1,6 @@
 import { VikaBot } from '../vika.js'
 import { Wechaty, ScanStatus, log, Message } from 'wechaty'
 import fs from 'fs'
-import { FileBox } from 'file-box'
 import console from 'console'
 
 let msgList = []
