@@ -102,7 +102,7 @@ async function onMessage(message) {
     }
 
     if (file) {
-      filePath = 'images/' + msgId + '.' + file.name.split('.').pop()
+      filePath = 'folder/' + file.name
       const writeStream = fs.createWriteStream(filePath)
       await file.pipe(writeStream)
       await wait(200)
