@@ -41,10 +41,11 @@ async function onMessage(message) {
       // 链接卡片消息
       case Message.Type.Url:
         msg_type = 'Url'
-        const urlLink = await message.toUrlLink();
+        // const urlLink = await message.toUrlLink();
         // urlLink: 链接主要数据：包括 title，URL，description
 
-        file = await message.toFileBox();
+
+        // file = await message.toFileBox();
         break;
 
       // 小程序卡片消息
@@ -103,14 +104,19 @@ async function onMessage(message) {
 
     if (file) {
       filePath = 'folder/' + file.name
-      const writeStream = fs.createWriteStream(filePath)
-      await file.pipe(writeStream)
-      await wait(200)
-      let readerStream = fs.createReadStream(filePath);
-      uploaded_attachments = await vika.upload(readerStream)
-      fs.unlink(filePath, (err) => {
-        console.debug(filePath, '已删除')
-      })
+      try {
+        const writeStream = fs.createWriteStream(filePath)
+        await file.pipe(writeStream)
+        await wait(200)
+        let readerStream = fs.createReadStream(filePath);
+        uploaded_attachments = await vika.upload(readerStream)
+        fs.unlink(filePath, (err) => {
+          console.debug(filePath, '已删除')
+        })
+      } catch {
+        console.debug('上传失败：', filePath)
+      }
+
     }
 
     // console.debug(message)
