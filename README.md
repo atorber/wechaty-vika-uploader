@@ -23,6 +23,7 @@ export WECHATY_PUPPET_PADLOCAL_TOKEN="替换为padloac token"
 export VIKA_TOKEN="替换为维格表token"
 export VIKA_DATASHEETID="替换为维格表id"
 ```
+> 当前版本需要在主程序文件相同目录下新建一个folder文件夹用于存放文件缓存
 
 5. 运行 npm run ding-dong-bot
 
