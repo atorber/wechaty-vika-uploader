@@ -1,6 +1,6 @@
 {
   "name": "wechaty-vika-link",
-  "version": "0.12.4",
+  "version": "0.12.5",
   "description": "Vika link for wechaty",
   "main": "src/index.js",
   "files": [
@@ -37,7 +37,8 @@
     "ding-dong-bot": "node examples/ding-dong-bot.js",
     "release": "verpub publish",
     "release:dry": "verpub --dry-run",
-    "docker": "docker build . -t vika-bot:v2"
+    "docker": "docker build . -t vika-bot:v2",
+    "npm-pub":"npm publish"
   },
   "keywords": [
     "wechaty",

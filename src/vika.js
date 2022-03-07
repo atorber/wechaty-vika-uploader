@@ -17,7 +17,7 @@ class VikaBot {
     // console.debug(talker)
     const to = msg.to()
     const type = msg.type()
-    let text = msg_type == 'Text' ? msg.text() : msg_type
+    let text = msg.text()
     let room = msg.room()
     let topic = ''
     if (room) {
