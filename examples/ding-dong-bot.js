@@ -10,12 +10,15 @@ const bot = new Wechaty()
 async function onMessage(msg) {
   log.info('StarterBot', msg.toString())
   // console.debug(msg)
+  if (msg.text() == 'ding') {
+    msg.say('dong')
+  }
 }
 
-bot.use(
-  WechatyVikaPlugin()
-)
+bot
+  .use(
+    WechatyVikaPlugin()
+  )
   .on('message', onMessage)
 
-bot.start()
-  .catch((e) => console.error(e))
+bot.start().catch((e) => console.error(e))
