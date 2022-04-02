@@ -73,7 +73,8 @@ class VikaBot {
         if (keys.indexOf(record.fields.key) != -1) {
           this.botRecords[record.fields.key] = record.recordId
           if (record.fields.key === 'secret') {
-            this.secret = JSON.parse(record.fields.value)
+            console.debug(record.fields)
+            this.secret = JSON.parse(record.fields.value||'{}')
           }
           if (record.fields.key === 'reportList') {
             this.reportList = JSON.parse(record.fields.value)
