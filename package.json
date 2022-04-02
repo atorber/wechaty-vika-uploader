@@ -1,6 +1,6 @@
 {
   "name": "wechaty-vika-link",
-  "version": "0.12.5",
+  "version": "0.16.0",
   "description": "Vika link for wechaty",
   "main": "src/index.js",
   "files": [
@@ -23,6 +23,7 @@
     "file-box": "^1.4.12",
     "fs": "^0.0.1-security",
     "moment": "^2.29.1",
+    "request-promise": "^4.2.6",
     "uuid": "^8.3.2"
   },
   "devDependencies": {
@@ -38,7 +39,8 @@
     "release": "verpub publish",
     "release:dry": "verpub --dry-run",
     "docker": "docker build . -t vika-bot:v2",
-    "npm-pub":"npm publish"
+    "npm-pub": "npm publish",
+    "unpublish":"npm unpublish wechaty-vika-link@0.15.1 --force"
   },
   "keywords": [
     "wechaty",

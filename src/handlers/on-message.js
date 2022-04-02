@@ -6,6 +6,7 @@ import console from 'console'
 let msgList = []
 
 let wait = ms => new Promise(resolve => setTimeout(resolve, ms));
+let vika = new VikaBot()
 
 async function onMessage(message) {
   // console.debug(message)
@@ -14,7 +15,6 @@ async function onMessage(message) {
     // // console.debug(config)
     // const { token, reportList, vikaConfig } = config
     // 维格表相关配置
-    let vika = new VikaBot()
 
     let file_payload = {}
     let uploaded_attachments = ''
