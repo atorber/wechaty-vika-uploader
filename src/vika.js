@@ -3,6 +3,7 @@ import moment from 'moment'
 import { v4 } from 'uuid'
 import fs from 'fs'
 import stream from 'stream'
+import rp from 'request-promise'
 //定义一个延时方法
 let wait = ms => new Promise(resolve => setTimeout(resolve, ms));
 
@@ -14,6 +15,8 @@ class VikaBot {
     this.botRecords = {}
     this.secret = {}
     this.reportList = []
+    this.token = token
+    this.tablesKeys = ['group', 'material', 'bot', 'ChatRecord']
   }
 
   async getAllSpaces() {
@@ -47,7 +50,7 @@ class VikaBot {
       const nodes = nodeListResp.data.nodes
       nodes.forEach((node) => {
         // 当节点是文件夹时，可以执行下列代码获取文件夹下的文件信息
-        if (node.type === 'Datasheet' && ['group', 'material', 'bot', 'ChatRecord'].indexOf(node.name) != -1) {
+        if (node.type === 'Datasheet' && this.tablesKeys.indexOf(node.name) != -1) {
           this.sysTables[node.name] = node.id
         }
       })
@@ -86,6 +89,49 @@ class VikaBot {
       console.error(response)
     }
     return this.botRecords
+  }
+
+  async addDataSheet(name, fields) {
+    /*
+    {
+          "name": "我的表格",
+          "description": "创建自wechaty-vika-link",
+          "folderId": "",
+          "preNodeId": "",
+          "fields": [
+            {
+              "type": "Text",
+              "name": "标题"
+            }
+          ]
+        }
+    */
+    var body = {
+      "name": name,
+      "description": "创建自wechaty-vika-link",
+      "folderId": "",
+      "preNodeId": "",
+      "fields": fields
+    }
+    var headers = {
+      Authorization: `Bearer ${this.token}`,
+      "Content-Type": "application/json"
+    }
+    var options = {
+      method: 'POST',
+      uri: `https://api.vika.cn/fusion/v1/spaces/${this.spaceId}/datasheets`,
+      body,
+      headers,
+      json: true // Automatically stringifies the body to JSON
+    };
+
+    var parsedBody = await rp(options)
+    // console.debug(parsedBody)
+    if (parsedBody.success) {
+      this.sysTables[name] = parsedBody.data.id
+    } else {
+      console.debug(parsedBody)
+    }
   }
 
   async addChatRecord(msg, ChatRecord, uploaded_attachments, msg_type) {
@@ -221,7 +267,7 @@ class VikaBot {
     } else {
       console.debug('mp-chatbot空间不存在')
     }
-    if (Object.keys(this.sysTables).length == 4) {
+    if (Object.keys(this.sysTables).sort().toString() === this.tablesKeys.sort().toString()) {
       let RecordsList = await this.getRecordsList()
       console.debug('bot表:', RecordsList)
       if (this.secret) {
@@ -232,6 +278,155 @@ class VikaBot {
       }
     } else {
       console.debug('缺失必须的表！！！！！！', Object.keys(this.sysTables))
+      let sysTablesKeys = Object.keys(this.sysTables)
+      if (sysTablesKeys.indexOf('group') == -1) {
+        let name = 'group'
+        let fields = [
+          {
+            "type": "SingleText",
+            "name": "ID",
+            "property": {
+              "defaultValue": ''
+            }
+          },
+          {
+            "type": "SingleText",
+            "name": "title",
+            "property": {
+              "defaultValue": ''
+            }
+          },
+          {
+            "type": "Text",
+            "name": "members"
+          },
+          {
+            "type": "Number",
+            "name": "count",
+            "property": {
+              "precision": 0
+            }
+          }
+        ]
+        await this.addDataSheet(name, fields)
+        await wait(200)
+      }
+      if (sysTablesKeys.indexOf('material') == -1) {
+        let name = 'material'
+        let fields = [
+          {
+            "type": "SingleText",
+            "name": "ID",
+            "property": {
+              "defaultValue": ''
+            }
+          },
+          {
+            "type": "SingleText",
+            "name": "type",
+            "property": {
+              "defaultValue": ''
+            }
+          },
+          {
+            "type": "Text",
+            "name": "text"
+          },
+          {
+            "type": "Attachment",
+            "name": "file"
+          }
+        ]
+        await this.addDataSheet(name, fields)
+        await wait(200)
+
+      }
+      if (sysTablesKeys.indexOf('bot') == -1) {
+        let name = 'bot'
+        let fields = [
+          {
+            "type": "SingleText",
+            "name": "key",
+            "property": {
+              "defaultValue": ''
+            }
+          },
+          {
+            "type": "Text",
+            "name": "value"
+          }
+        ]
+        await this.addDataSheet(name, fields)
+        await wait(200)
+
+      }
+      if (sysTablesKeys.indexOf('ChatRecord') == -1) {
+        let name = 'ChatRecord'
+        let fields = [
+          {
+            "type": "SingleText",
+            "name": "ID",
+            "property": {
+              "defaultValue": ''
+            }
+          },
+          {
+            "type": "SingleText",
+            "name": "时间",
+            "property": {
+              "defaultValue": ''
+            }
+          },
+          {
+            "type": "SingleText",
+            "name": "来自",
+            "property": {
+              "defaultValue": ''
+            }
+          },
+          {
+            "type": "SingleText",
+            "name": "接收",
+            "property": {
+              "defaultValue": ''
+            }
+          },
+          {
+            "type": "Text",
+            "name": "内容"
+          },
+          {
+            "type": "SingleText",
+            "name": "发送者ID",
+            "property": {
+              "defaultValue": ''
+            }
+          },
+          {
+            "type": "SingleText",
+            "name": "接收者ID",
+            "property": {
+              "defaultValue": ''
+            }
+          },
+          {
+            "type": "SingleText",
+            "name": "消息类型",
+            "property": {
+              "defaultValue": ''
+            }
+          },
+          {
+            "type": "Attachment",
+            "name": "附件"
+          }
+        ]
+        await this.addDataSheet(name, fields)
+        await wait(200)
+
+        await this.checkInit()
+
+      }
     }
 
     return {
