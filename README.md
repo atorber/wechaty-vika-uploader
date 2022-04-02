@@ -6,7 +6,7 @@ wechaty微信机器人聊天消息备份到维表格vika插件
 
 ## 快速入门
 
-1. 到维格表官网（https://vika.cn/) 注册维格表账号
+1. 到 [维格表官网](https://vika.cn/) 注册维格表账号
 
 2. 创建一个名字为 mp-chatbot 的空间
 
