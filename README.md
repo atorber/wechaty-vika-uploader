@@ -25,7 +25,7 @@ export VIKA_TOKEN="替换为维格表token"
 
 5. 运行 npm run ding-dong-bot
 
-> 首次运行时，会自动在 mp-chatbot 空间创建四张表group、material、bot、ChatRecord，但是实际只有ChatRecord会被用到
+> 首次运行时，会自动在 mp-chatbot 空间创建一个名为ChatRecord的表
 
 ![vika](./doc/images/vika.png)
 
