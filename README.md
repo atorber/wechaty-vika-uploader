@@ -23,7 +23,11 @@ export VIKA_TOKEN="替换为维格表token"
 ```
 > 当前版本需要在主程序文件相同目录下新建一个folder文件夹用于存放文件缓存
 
-5. 运行 npm run ding-dong-bot
+5. 运行 
+
+```
+npm run ding-dong-bot
+```
 
 > 首次运行时，会自动在 mp-chatbot 空间创建一个名为ChatRecord的表
 
