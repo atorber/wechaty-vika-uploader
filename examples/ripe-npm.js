@@ -14,10 +14,7 @@ async function onMessage(msg) {
 
 bot
   .use(
-    WechatyVikaPlugin({
-      token: vikaToken,
-      reportList: [],
-    })
+    WechatyVikaPlugin()
   )
   .on('scan', (qrcode, status) => {
     if (status === ScanStatus.Waiting) {

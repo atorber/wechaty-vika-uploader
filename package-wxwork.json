@@ -29,11 +29,14 @@
   "devDependencies": {
     "qrcode-terminal": "^0.12.0",
     "wechaty": "^0.62.1",
-    "wechaty-plugin-contrib": "^0.14.23"
+    "wechaty-plugin-contrib": "^0.14.23",
+    "wechaty-mqtt-link": "^0.4.0",
+    "wechaty-vika-link": "^0.16.2"
   },
   "scripts": {
     "test": "node test/index.js",
     "wxwork": "node test/wxwork.js",
+    "ripe-mqtt": "node examples/ripe-mqtt.js",
     "dingdong": "node examples/ding-dong-bot.js",
     "release": "verpub publish",
     "release:dry": "verpub --dry-run",
