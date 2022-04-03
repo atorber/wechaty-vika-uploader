@@ -23,12 +23,13 @@ async function onMessage(message) {
     let file = ''
     let fileDate = ''
     let filePath = ''
+    let text = ''
 
     switch (message.type()) {
       // 文本消息
       case Message.Type.Text:
         msg_type = 'Text'
-        // const text = message.text();
+        text = message.text();
         break;
 
       // 图片消息
@@ -41,9 +42,10 @@ async function onMessage(message) {
       // 链接卡片消息
       case Message.Type.Url:
         msg_type = 'Url'
-        // const urlLink = await message.toUrlLink();
-        // urlLink: 链接主要数据：包括 title，URL，description
+        const urlLink = await message.toUrlLink();
+        text = JSON.stringify(JSON.parse(JSON.stringify(urlLink)).payload)
 
+        // urlLink: 链接主要数据：包括 title，URL，description
 
         // file = await message.toFileBox();
         break;
@@ -53,7 +55,9 @@ async function onMessage(message) {
         msg_type = 'MiniProgram'
 
         const miniProgram = await message.toMiniProgram();
-        console.debug(miniProgram)
+        text = JSON.stringify(JSON.parse(JSON.stringify(miniProgram)).payload)
+
+        // console.debug(miniProgram)
         /*
         miniProgram: 小程序卡片数据
         {
@@ -121,7 +125,7 @@ async function onMessage(message) {
     }
 
     // console.debug(message)
-    vika.addChatRecord(message, uploaded_attachments, msg_type)
+    vika.addChatRecord(message, uploaded_attachments, msg_type, text)
 
   } catch (e) {
     console.log('监听消息失败', e)

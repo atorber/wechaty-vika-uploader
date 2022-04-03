@@ -100,14 +100,14 @@ class VikaBot {
     }
   }
 
-  async addChatRecord(msg, uploaded_attachments, msg_type) {
+  async addChatRecord(msg, uploaded_attachments, msg_type, text) {
     console.debug(msg)
     console.debug(JSON.stringify(msg))
     const talker = msg.talker()
     // console.debug(talker)
     const to = msg.to()
     const type = msg.type()
-    let text = msg.text()
+    text = text || msg.text()
     let room = msg.room()
     let topic = ''
     if (room) {

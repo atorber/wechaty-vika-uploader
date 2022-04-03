@@ -29,7 +29,11 @@ export VIKA_TOKEN="替换为维格表token"
 npm run ding-dong-bot
 ```
 
-> 首次运行时，会自动在 mp-chatbot 空间创建一个名为ChatRecord的表
+> 首次运行时，会自动在 mp-chatbot 空间默认创建一个名为ChatRecord的表，如果有多个bot也可以使用环境变量指定表名称（只有一个bot时建议不指定）
+
+```
+export VIKA_DATASHEETNAME="替换为维格表名称"
+```
 
 ![vika](./doc/images/vika.png)
 
