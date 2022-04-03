@@ -14,7 +14,7 @@ wechaty微信机器人聊天消息备份到维表格vika插件
 
 ![vika](./doc/images/vika_token.png)
 
-4. 配置环境变量，示例中使用了padlocal，可以自行更换为其他puppet
+4. 运行如下命令配置环境变量，示例中使用了padlocal，可以自行更换为其他puppet，可以在 [padlocal官网](http://pad-local.com/#/login) 申请7天免费token
 
 ```
 export WECHATY_PUPPET=wechaty-puppet-padlocal

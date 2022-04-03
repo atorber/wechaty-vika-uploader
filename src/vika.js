@@ -11,6 +11,7 @@ class VikaBot {
     this.vika = new Vika({ token: process.env['VIKA_TOKEN'] })
     this.spaceId = ''
     this.datasheetId = ''
+    this.datasheetName = process.env['VIKA_DATASHEETNAME'] || 'ChatRecord'
     this.token = process.env['VIKA_TOKEN']
     this.checkInit()
   }
@@ -100,7 +101,8 @@ class VikaBot {
   }
 
   async addChatRecord(msg, uploaded_attachments, msg_type) {
-    // console.debug(JSON.stringify(msg))
+    console.debug(msg)
+    console.debug(JSON.stringify(msg))
     const talker = msg.talker()
     // console.debug(talker)
     const to = msg.to()
@@ -119,6 +121,7 @@ class VikaBot {
     let files = []
     if (uploaded_attachments) {
       files.push(uploaded_attachments)
+      text = JSON.stringify(uploaded_attachments)
     }
     let records = [
       {
@@ -126,7 +129,7 @@ class VikaBot {
           ID: ID,
           时间: timeHms,
           来自: talker ? talker.name() : '未知',
-          接收: topic || '单聊',
+          接收: topic || '--',
           内容: text,
           发送者ID: talker.id != 'null' ? talker.id : '--',
           接收方ID: room && room.id ? room.id : '--',
@@ -152,7 +155,7 @@ class VikaBot {
       const resp = await datasheet.upload(file)
       if (resp.success) {
         const uploaded_attachments = resp.data
-        console.debug(uploaded_attachments)
+        console.debug('上传成功', uploaded_attachments)
         // await vika.datasheet('dstWUHwzTHd2YQaXEE').records.create([{
         //   'title': '标题 A',
         //   'photos': [uploaded_attachments]
@@ -172,12 +175,12 @@ class VikaBot {
       let tables = await this.getNodesList()
       console.debug('空间内所有表:', tables)
 
-      if (tables.ChatRecord) {
-        this.datasheetId = tables.ChatRecord
-        console.debug('ChatRecord表存在:', this.datasheetId)
+      if (tables[this.datasheetName]) {
+        this.datasheetId = tables[this.datasheetName]
+        console.debug(this.datasheetName + '表存在:', this.datasheetId, '初始化完成')
       } else {
-        console.debug('缺失ChatRecord表,自动创建')
-        let name = 'ChatRecord'
+        console.debug(this.datasheetName + '表不存在:自动创建')
+        let name = this.datasheetName
         let fields = [
           {
             "type": "SingleText",
@@ -220,7 +223,7 @@ class VikaBot {
           },
           {
             "type": "SingleText",
-            "name": "接收者ID",
+            "name": "接收方ID",
             "property": {
               "defaultValue": ''
             }

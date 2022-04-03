@@ -53,6 +53,7 @@ async function onMessage(message) {
         msg_type = 'MiniProgram'
 
         const miniProgram = await message.toMiniProgram();
+        console.debug(miniProgram)
         /*
         miniProgram: 小程序卡片数据
         {
@@ -103,7 +104,7 @@ async function onMessage(message) {
     }
 
     if (file) {
-      filePath = 'folder/' + file.name
+      filePath = './folder/' + file.name
       try {
         const writeStream = fs.createWriteStream(filePath)
         await file.pipe(writeStream)

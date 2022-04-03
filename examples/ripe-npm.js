@@ -19,6 +19,16 @@ bot
       reportList: [],
     })
   )
+  .on('scan', (qrcode, status) => {
+    if (status === ScanStatus.Waiting) {
+      qrcodeTerminal.generate(qrcode, {
+        small: true
+      })
+    }
+  })
+  .on('login', async user => {
+    console.log(`user: ${JSON.stringify(user)}`)
+  })
   .on('message', onMessage)
 
 bot.start().catch((e) => console.error(e))
