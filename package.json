@@ -40,7 +40,7 @@
     "dingdong": "node examples/ding-dong-bot.js",
     "release": "verpub publish",
     "release:dry": "verpub --dry-run",
-    "docker": "docker build . -t vika-bot:v2",
+    "docker": "docker build . -t vika-bot:v3",
     "npm-pub": "npm publish",
     "unpublish": "npm unpublish wechaty-vika-link@0.15.1 --force"
   },
