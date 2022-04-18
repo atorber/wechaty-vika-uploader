@@ -123,21 +123,39 @@ class VikaBot {
       files.push(uploaded_attachments)
       text = JSON.stringify(uploaded_attachments)
     }
+
     let records = [
       {
         fields: {
-          id: ID,
-          timeHms: timeHms,
-          name: talker ? talker.name() : '未知',
-          topic: topic || '--',
-          text: text,
-          wxid: talker.id != 'null' ? talker.id : '--',
-          roomid: room && room.id ? room.id : '--',
-          messageType: msg_type,
-          files: files,
+          ID: ID,
+          时间: timeHms,
+          来自: talker ? talker.name() : '未知',
+          接收: topic || '--',
+          内容: text,
+          发送者ID: talker.id != 'null' ? talker.id : '--',
+          接收方ID: room && room.id ? room.id : '--',
+          消息类型: msg_type,
+          附件: files
         },
       },
     ]
+
+    // let records = [
+    //   {
+    //     fields: {
+    //       id: ID,
+    //       timeHms: timeHms,
+    //       name: talker ? talker.name() : '未知',
+    //       topic: topic || '--',
+    //       text: text,
+    //       wxid: talker.id != 'null' ? talker.id : '--',
+    //       roomid: room && room.id ? room.id : '--',
+    //       messageType: msg_type,
+    //       files: files
+    //     },
+    //   },
+    // ]
+
     console.debug(records)
     const datasheet = this.vika.datasheet(this.datasheetId)
     datasheet.records.create(records).then((response) => {
@@ -181,65 +199,127 @@ class VikaBot {
       } else {
         console.debug(this.datasheetName + '表不存在:自动创建')
         let name = this.datasheetName
+
         let fields = [
           {
             "type": "SingleText",
-            "name": "id",
+            "name": "ID",
             "property": {
               "defaultValue": ''
             }
           },
           {
             "type": "SingleText",
-            "name": "timeHms",
+            "name": "时间",
             "property": {
               "defaultValue": ''
             }
           },
           {
             "type": "SingleText",
-            "name": "name",
+            "name": "来自",
             "property": {
               "defaultValue": ''
             }
           },
           {
             "type": "SingleText",
-            "name": "topic",
+            "name": "接收",
             "property": {
               "defaultValue": ''
             }
           },
           {
             "type": "Text",
-            "name": "text"
+            "name": "内容"
           },
           {
             "type": "SingleText",
-            "name": "wxid",
+            "name": "发送者ID",
             "property": {
               "defaultValue": ''
             }
           },
           {
             "type": "SingleText",
-            "name": "roomid",
+            "name": "接收方ID",
             "property": {
               "defaultValue": ''
             }
           },
           {
             "type": "SingleText",
-            "name": "messageType",
+            "name": "消息类型",
             "property": {
               "defaultValue": ''
             }
           },
           {
             "type": "Attachment",
-            "name": "files"
+            "name": "附件"
           }
         ]
+
+        // let fields = [
+        //   {
+        //     "type": "SingleText",
+        //     "name": "id",
+        //     "property": {
+        //       "defaultValue": ''
+        //     }
+        //   },
+        //   {
+        //     "type": "SingleText",
+        //     "name": "timeHms",
+        //     "property": {
+        //       "defaultValue": ''
+        //     }
+        //   },
+        //   {
+        //     "type": "SingleText",
+        //     "name": "name",
+        //     "property": {
+        //       "defaultValue": ''
+        //     }
+        //   },
+        //   {
+        //     "type": "SingleText",
+        //     "name": "topic",
+        //     "property": {
+        //       "defaultValue": ''
+        //     }
+        //   },
+        //   {
+        //     "type": "Text",
+        //     "name": "text"
+        //   },
+        //   {
+        //     "type": "SingleText",
+        //     "name": "wxid",
+        //     "property": {
+        //       "defaultValue": ''
+        //     }
+        //   },
+        //   {
+        //     "type": "SingleText",
+        //     "name": "roomid",
+        //     "property": {
+        //       "defaultValue": ''
+        //     }
+        //   },
+        //   {
+        //     "type": "SingleText",
+        //     "name": "messageType",
+        //     "property": {
+        //       "defaultValue": ''
+        //     }
+        //   },
+        //   {
+        //     "type": "Attachment",
+        //     "name": "files"
+        //   }
+        // ]
+
         await this.addDataSheet(name, fields)
         await wait(200)
         await this.checkInit()

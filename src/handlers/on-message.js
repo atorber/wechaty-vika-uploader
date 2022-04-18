@@ -47,7 +47,7 @@ async function onMessage(message) {
 
         // urlLink: 链接主要数据：包括 title，URL，description
 
-        // file = await message.toFileBox();
+        file = await message.toFileBox();
         break;
 
       // 小程序卡片消息
