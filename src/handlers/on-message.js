@@ -1,5 +1,5 @@
 import { VikaBot } from '../vika.js'
-import { Wechaty, ScanStatus, log, Message } from 'wechaty'
+// import { Wechaty, ScanStatus, log, Message } from 'wechaty'
 import fs from 'fs'
 import console from 'console'
 
@@ -16,31 +16,50 @@ async function onMessage(message) {
     // const { token, reportList, vikaConfig } = config
     // 维格表相关配置
 
-    let file_payload = {}
+
     let uploaded_attachments = ''
     let msg_type = 'Unknown'
-    let msgId = message.id
     let file = ''
-    let fileDate = ''
     let filePath = ''
     let text = ''
 
+
     switch (message.type()) {
       // 文本消息
-      case Message.Type.Text:
+      case bot.Message.Type.Text:
         msg_type = 'Text'
         text = message.text();
         break;
 
       // 图片消息
-      case Message.Type.Image:
+      case bot.Message.Type.Image:
         msg_type = 'Image'
-        file = await message.toImage().artwork()
+
+        const img = await message.toImage()
+        console.info(img)
+
+        const thumbFile = await img.thumbnail()
+        // log.info('thumbFile', thumbFile.name)
+        await thumbFile.toFile(`${process.cwd()}/cache/${thumbFile.name}`, true)
+        await timersPromise.setTimeout(1000)
+
+        const hdFile = await img.hd()
+        // log.info('hdFile', hdFile.name)
+        await hdFile.toFile(`${process.cwd()}/cache/${hdFile.name}`, true)
+        setTimeout(message.wechaty.wrapAsync(
+          async function () {
+            file = await message.toFileBox()
+            // console.info(imginfo)
+          },
+        ), 500)
+
+        file = thumbFile
+
 
         break;
 
       // 链接卡片消息
-      case Message.Type.Url:
+      case bot.Message.Type.Url:
         msg_type = 'Url'
         const urlLink = await message.toUrlLink();
         text = JSON.stringify(JSON.parse(JSON.stringify(urlLink)).payload)
@@ -51,7 +70,7 @@ async function onMessage(message) {
         break;
 
       // 小程序卡片消息
-      case Message.Type.MiniProgram:
+      case bot.Message.Type.MiniProgram:
         msg_type = 'MiniProgram'
 
         const miniProgram = await message.toMiniProgram();
@@ -75,28 +94,28 @@ async function onMessage(message) {
         break;
 
       // 语音消息
-      case Message.Type.Audio:
+      case bot.Message.Type.Audio:
         msg_type = 'Audio'
         file = await message.toFileBox();
 
         break;
 
       // 视频消息
-      case Message.Type.Video:
+      case bot.Message.Type.Video:
         msg_type = 'Video'
 
         file = await message.toFileBox();
         break;
 
       // 动图表情消息
-      case Message.Type.Emoticon:
+      case bot.Message.Type.Emoticon:
         msg_type = 'Emoticon'
         file = await message.toFileBox();
 
         break;
 
       // 文件消息
-      case Message.Type.Attachment:
+      case bot.Message.Type.Attachment:
         msg_type = 'Attachment'
         file = await message.toFileBox();
 
@@ -108,19 +127,23 @@ async function onMessage(message) {
     }
 
     if (file) {
-      filePath = './folder/' + file.name
+      filePath = './cache/' + file.name
+      console.debug('filePath', filePath)
       try {
         const writeStream = fs.createWriteStream(filePath)
         await file.pipe(writeStream)
         await wait(200)
         let readerStream = fs.createReadStream(filePath);
         uploaded_attachments = await vika.upload(readerStream)
-        fs.unlink(filePath, (err) => {
-          console.debug(filePath, '已删除')
-        })
+        console.debug(uploaded_attachments)
+        // fs.unlink(filePath, (err) => {
+        //   console.debug(filePath, '已删除')
+        // })
       } catch {
         console.debug('上传失败：', filePath)
       }
+
+    } else {
 
     }
 

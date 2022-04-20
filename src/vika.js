@@ -6,13 +6,15 @@ import rp from 'request-promise'
 //定义一个延时方法
 let wait = ms => new Promise(resolve => setTimeout(resolve, ms));
 
+// console.debug('VIKA_TOKEN', process.env['VIKA_TOKEN'])
+
 class VikaBot {
-  constructor() {
-    this.vika = new Vika({ token: process.env['VIKA_TOKEN'] })
+  constructor(VIKA_TOKEN, VIKA_DATASHEETNAME) {
+    this.vika = new Vika({ token: VIKA_TOKEN || process.env['VIKA_TOKEN'] })
     this.spaceId = ''
     this.datasheetId = ''
-    this.datasheetName = process.env['VIKA_DATASHEETNAME'] || 'ChatRecord'
-    this.token = process.env['VIKA_TOKEN']
+    this.datasheetName = VIKA_DATASHEETNAME || process.env['VIKA_DATASHEETNAME'] || 'ChatRecord'
+    this.token = VIKA_TOKEN || process.env['VIKA_TOKEN']
     this.checkInit()
   }
 
@@ -117,7 +119,8 @@ class VikaBot {
     let reqId = v4()
     let ID = msg.id
     // let msg_type = msg.type()
-    let timeHms = moment(curTime).format('YYYY-MM-DD HH:mm:ss')
+    let time = moment(curTime).format('HH:mm:ss')
+    let date = moment(curTime).format('YYYY-MM-DD')
     let files = []
     if (uploaded_attachments) {
       files.push(uploaded_attachments)
@@ -128,12 +131,12 @@ class VikaBot {
       {
         fields: {
           ID: ID,
-          时间: timeHms,
+          日期:date,
+          时间: time,
           来自: talker ? talker.name() : '未知',
+          群昵称: await room.alias(talker),
           接收: topic || '--',
           内容: text,
-          发送者ID: talker.id != 'null' ? talker.id : '--',
-          接收方ID: room && room.id ? room.id : '--',
           消息类型: msg_type,
           附件: files
         },
@@ -144,7 +147,8 @@ class VikaBot {
     //   {
     //     fields: {
     //       id: ID,
-    //       timeHms: timeHms,
+    //       time: time,
+    //       date:date,
     //       name: talker ? talker.name() : '未知',
     //       topic: topic || '--',
     //       text: text,
@@ -210,6 +214,13 @@ class VikaBot {
           },
           {
             "type": "SingleText",
+            "name": "日期",
+            "property": {
+              "defaultValue": ''
+            }
+          },
+          {
+            "type": "SingleText",
             "name": "时间",
             "property": {
               "defaultValue": ''
@@ -224,6 +235,13 @@ class VikaBot {
           },
           {
             "type": "SingleText",
+            "name": "群昵称",
+            "property": {
+              "defaultValue": ''
+            }
+          },
+          {
+            "type": "SingleText",
             "name": "接收",
             "property": {
               "defaultValue": ''
@@ -232,20 +250,6 @@ class VikaBot {
           {
             "type": "Text",
             "name": "内容"
-          },
-          {
-            "type": "SingleText",
-            "name": "发送者ID",
-            "property": {
-              "defaultValue": ''
-            }
-          },
-          {
-            "type": "SingleText",
-            "name": "接收方ID",
-            "property": {
-              "defaultValue": ''
-            }
           },
           {
             "type": "SingleText",
@@ -270,7 +274,14 @@ class VikaBot {
         //   },
         //   {
         //     "type": "SingleText",
-        //     "name": "timeHms",
+        //     "name": "time",
+        //     "property": {
+        //       "defaultValue": ''
+        //     }
+        //   },
+                //   {
+        //     "type": "SingleText",
+        //     "name": "date",
         //     "property": {
         //       "defaultValue": ''
         //     }
