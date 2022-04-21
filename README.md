@@ -36,3 +36,10 @@ npm run start
 ### 楼栋统计
 
 ![image](https://user-images.githubusercontent.com/19552906/164365570-062eca07-2b91-468b-8a95-b8eb872c62c3.png)
+
+### 更多报表
+
+只需要在vika里创建相应的视图，设置筛选条件即可输出新的报表，可以根据统计需求自行设计
+
+![image](https://user-images.githubusercontent.com/19552906/164367464-71759603-b976-4cdc-9d29-5735ba378979.png)
+
