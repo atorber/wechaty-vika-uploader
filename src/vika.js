@@ -112,8 +112,11 @@ class VikaBot {
     text = text || msg.text()
     let room = msg.room()
     let topic = ''
+    let alias = ''
     if (room) {
       topic = await room.topic()
+      alias = await room.alias(talker)
+      console.log('alias', alias)
     }
     let curTime = this.getCurTime()
     let reqId = v4()
@@ -134,7 +137,7 @@ class VikaBot {
           日期:date,
           时间: time,
           来自: talker ? talker.name() : '未知',
-          群昵称: await room.alias(talker),
+          群昵称: alias,
           接收: topic || '--',
           内容: text,
           消息类型: msg_type,

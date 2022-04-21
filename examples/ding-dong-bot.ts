@@ -9,7 +9,7 @@ import console from 'console'
 
 let msgList = []
 
-const VIKA_TOKEN = 'vika-token' // 替换为自己的vika表token
+const VIKA_TOKEN = '' // 替换为自己的vika表token
 const VIKA_DATASHEETNAME = '抗疫信息统计表'
 
 let vika = new VikaBot(VIKA_TOKEN, VIKA_DATASHEETNAME)
@@ -48,7 +48,7 @@ function onScan(qrcode: string, status: ScanStatus) {
 async function onLogin(user: Contact) {
     log.info('StarterBot', '%s login', user)
     const roomList = await bot.Room.findAll()
-    console.info(roomList.length)
+    console.info('群数量：',roomList.length)
 }
 
 function onLogout(user: Contact) {
@@ -67,8 +67,7 @@ async function onMessage(message: Message) {
     const room = message.room()
     // console.log(room)
 
-    const alias = await room.alias(contact)
-    console.log('alias', alias)
+
 
     if (room) {
         const topic = await room.topic()
