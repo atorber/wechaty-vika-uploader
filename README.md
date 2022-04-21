@@ -2,7 +2,7 @@
 
 ## 简介
 
-使用wechaty机器人+维格表 收集防疫群统计信息，可运行与任何windows环境，登陆个人wechat账号
+使用wechaty机器人+维格表 收集防疫群统计信息，可运行与任何windows环境，登陆个人wechat账号和维格表账号
 
 
 ## 快速入门
@@ -25,4 +25,14 @@ npm run start
 
 ## 效果展示
 
+### 抗原检测截图收集
+
 ![image](https://user-images.githubusercontent.com/19552906/164364958-5cd6dc49-9966-4987-a36b-fd8e416caab9.png)
+
+### 打卡签到统计
+
+![image](https://user-images.githubusercontent.com/19552906/164365509-39655e25-def2-4721-8cfb-395b3a84dafb.png)
+
+### 楼栋统计
+
+![image](https://user-images.githubusercontent.com/19552906/164365570-062eca07-2b91-468b-8a95-b8eb872c62c3.png)
