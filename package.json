@@ -1,6 +1,6 @@
 {
   "name": "wechaty-vika-link",
-  "version": "0.16.4",
+  "version": "0.17.0",
   "description": "Vika link for wechaty",
   "main": "src/index.js",
   "files": [
@@ -31,6 +31,7 @@
     "wechaty": "^0.62.1",
     "wechaty-plugin-contrib": "^0.14.23",
     "wechaty-mqtt-link": "^0.4.0",
+    "wechaty-puppet-padlocal": "^0.4.2",
     "wechaty-vika-link": "^0.16.2"
   },
   "scripts": {
