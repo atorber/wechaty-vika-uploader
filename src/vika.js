@@ -131,7 +131,7 @@ class VikaBot {
           timeHms: timeHms,
           name: talker ? talker.name() : '未知',
           topic: topic || '--',
-          text: text,
+          messagePayload: text,
           wxid: talker.id != 'null' ? talker.id : '--',
           roomid: room && room.id ? room.id : '--',
           messageType: msg_type,
@@ -231,7 +231,7 @@ class VikaBot {
           },
           {
             "type": "Text",
-            "name": "text"
+            "name": "messagePayload"
           },
           {
             "type": "SingleText",
