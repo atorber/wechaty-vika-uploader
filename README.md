@@ -53,3 +53,9 @@ npm install wechaty-vika-link@latest
 ## 效果展示
 
 ![vika](./doc/images/demo.png)
+
+## 版本
+
+v0.17.0
+
+1. 变更表字段名称为英文命名方式

@@ -127,15 +127,15 @@ class VikaBot {
     let records = [
       {
         fields: {
-          ID: ID,
-          时间: timeHms,
-          来自: talker ? talker.name() : '未知',
-          接收: topic || '--',
-          内容: text,
-          发送者ID: talker.id != 'null' ? talker.id : '--',
-          接收方ID: room && room.id ? room.id : '--',
-          消息类型: msg_type,
-          附件: files
+          _id: ID,
+          timeHms: timeHms,
+          name: talker ? talker.name() : '未知',
+          topic: topic || '--',
+          text: text,
+          wxid: talker.id != 'null' ? talker.id : '--',
+          roomid: room && room.id ? room.id : '--',
+          messageType: msg_type,
+          file: files
         },
       },
     ]
@@ -203,60 +203,60 @@ class VikaBot {
         let fields = [
           {
             "type": "SingleText",
-            "name": "ID",
+            "name": "_id",
             "property": {
               "defaultValue": ''
             }
           },
           {
             "type": "SingleText",
-            "name": "时间",
+            "name": "timeHms",
             "property": {
               "defaultValue": ''
             }
           },
           {
             "type": "SingleText",
-            "name": "来自",
+            "name": "name",
             "property": {
               "defaultValue": ''
             }
           },
           {
             "type": "SingleText",
-            "name": "接收",
+            "name": "topic",
             "property": {
               "defaultValue": ''
             }
           },
           {
             "type": "Text",
-            "name": "内容"
+            "name": "text"
           },
           {
             "type": "SingleText",
-            "name": "发送者ID",
+            "name": "wxid",
             "property": {
               "defaultValue": ''
             }
           },
           {
             "type": "SingleText",
-            "name": "接收方ID",
+            "name": "roomid",
             "property": {
               "defaultValue": ''
             }
           },
           {
             "type": "SingleText",
-            "name": "消息类型",
+            "name": "messageType",
             "property": {
               "defaultValue": ''
             }
           },
           {
             "type": "Attachment",
-            "name": "附件"
+            "name": "file"
           }
         ]
 
