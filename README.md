@@ -59,3 +59,22 @@ npm install wechaty-vika-link@latest
 v0.17.0
 
 1. 变更表字段名称为英文命名方式
+2. 表结构
+
+    ```
+    [
+    {
+        fields: {
+        _id: '8647378336392492845',
+        timeHms: '2022-05-09 00:44:44',
+        name: 'luyuchao',
+        topic: '专属清单Discard',
+        messagePayload: 'hhh',
+        wxid: 'xxxx',
+        roomid: '20641535286@chatroom',
+        messageType: 'Text',
+        file: []
+        }
+    }
+    ]
+    ```
