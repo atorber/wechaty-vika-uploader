@@ -57,7 +57,21 @@ class VikaBot {
             },
             {
               "type": "SingleText",
+              "name": "topic",
+              "property": {
+                "defaultValue": ''
+              }
+            },
+            {
+              "type": "SingleText",
               "name": "talkerId",
+              "property": {
+                "defaultValue": ''
+              }
+            },
+            {
+              "type": "SingleText",
+              "name": "name",
               "property": {
                 "defaultValue": ''
               }
@@ -404,8 +418,8 @@ class VikaBot {
         fields: {
           id: ID,
           timestamp: curTime,
-          // name: talker ? talker.name() : '未知',
-          // topic: topic || '--',
+          name: talker ? talker.name() : '未知',
+          topic: topic || '--',
           text: text,
           talkerId: talker.id != 'null' ? talker.id : '--',
           roomId: room && room.id ? room.id : '--',

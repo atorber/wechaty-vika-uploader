@@ -1,6 +1,6 @@
 {
   "name": "wechaty-vika-link",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Vika link for wechaty",
   "main": "src/index.js",
   "files": [
@@ -19,14 +19,14 @@
   },
   "type": "module",
   "dependencies": {
-    "dotenv": "^16.0.0",
     "@vikadata/vika": "^1.0.5",
+    "dotenv": "^16.0.0",
     "file-box": "^1.4.12",
     "fs": "^0.0.1-security",
     "moment": "^2.29.1",
+    "qrcode-terminal": "^0.12.0",
     "request-promise": "^4.2.6",
     "uuid": "^8.3.2",
-    "qrcode-terminal": "^0.12.0",
     "wechaty-puppet": "^1.18.3"
   },
   "devDependencies": {
@@ -34,13 +34,13 @@
     "@chatie/tsconfig": "^4.6.3",
     "check-node-version": "^4.2.1",
     "is-pr": "^2.0.0",
-    "typescript": "^4.4.4",
     "qrcode-terminal": "^0.12.0",
+    "typescript": "^4.4.4",
     "wechaty": "^1.19.11",
-    "wechaty-puppet-xp": "^1.11.8",
-    "wechaty-plugin-contrib": "^0.14.23",
     "wechaty-mqtt-link": "^0.4.0",
-    "wechaty-puppet-padlocal": "^0.4.2"
+    "wechaty-plugin-contrib": "^0.14.23",
+    "wechaty-puppet-padlocal": "^0.4.2",
+    "wechaty-puppet-xp": "^1.11.11"
   },
   "scripts": {
     "test": "node test/index.js",
