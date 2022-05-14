@@ -41,7 +41,6 @@ async function onMessage (message, vika) {
 
       // 链接卡片消息
       case PUPPET.types.Message.Url:
-
         const urlLink = await message.toUrlLink()
         text = JSON.stringify(JSON.parse(JSON.stringify(urlLink)).payload)
         // file = await message.toFileBox();
