@@ -37,10 +37,10 @@
     "typescript": "^4.4.4",
     "qrcode-terminal": "^0.12.0",
     "wechaty": "^1.19.11",
-    "wechaty-puppet-xp": "^1.11.8"
+    "wechaty-puppet-xp": "^1.11.8",
     "wechaty-plugin-contrib": "^0.14.23",
     "wechaty-mqtt-link": "^0.4.0",
-    "wechaty-puppet-padlocal": "^0.4.2",
+    "wechaty-puppet-padlocal": "^0.4.2"
   },
   "scripts": {
     "test": "node test/index.js",
