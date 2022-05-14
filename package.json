@@ -1,6 +1,6 @@
 {
   "name": "wechaty-vika-link",
-  "version": "0.17.0",
+  "version": "1.0.0",
   "description": "Vika link for wechaty",
   "main": "src/index.js",
   "files": [
@@ -19,23 +19,33 @@
   },
   "type": "module",
   "dependencies": {
+    "dotenv": "^16.0.0",
     "@vikadata/vika": "^1.0.5",
     "file-box": "^1.4.12",
     "fs": "^0.0.1-security",
     "moment": "^2.29.1",
     "request-promise": "^4.2.6",
-    "uuid": "^8.3.2"
+    "uuid": "^8.3.2",
+    "qrcode-terminal": "^0.12.0",
+    "wechaty-puppet": "^1.18.3"
   },
   "devDependencies": {
+    "@chatie/eslint-config": "^1.0.4",
+    "@chatie/tsconfig": "^4.6.3",
+    "check-node-version": "^4.2.1",
+    "is-pr": "^2.0.0",
+    "typescript": "^4.4.4",
     "qrcode-terminal": "^0.12.0",
-    "wechaty": "^0.62.1",
+    "wechaty": "^1.19.11",
+    "wechaty-puppet-xp": "^1.11.8"
     "wechaty-plugin-contrib": "^0.14.23",
     "wechaty-mqtt-link": "^0.4.0",
     "wechaty-puppet-padlocal": "^0.4.2",
-    "wechaty-vika-link": "^0.16.2"
   },
   "scripts": {
     "test": "node test/index.js",
+    "start": "cross-env NODE_OPTIONS=\"--no-warnings --loader=ts-node/esm\" node examples/ding-dong-bot.ts",
+    "vika": "cross-env NODE_OPTIONS=\"--no-warnings --loader=ts-node/esm\" node examples/ripe-vika.ts",
     "wxwork": "node test/wxwork.js",
     "ripe-mqtt": "node examples/ripe-mqtt.js",
     "dingdong": "node examples/ding-dong-bot.js",

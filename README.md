@@ -2,7 +2,7 @@
 
 wechaty微信机器人聊天消息备份到维表格vika插件
 
-依赖wechaty <= v0.6.9
+支持wechaty 1.x
 
 ## 快速入门
 
