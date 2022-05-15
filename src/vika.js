@@ -458,15 +458,25 @@ class VikaBot {
     }).catch(err => { console.error('调用vika写入接口失败：', err) })
   }
 
-  async createRecords(datasheetId, records) {
+  async createRecords(datasheetId, records, count = 0) {
     const datasheet = this.vika.datasheet(datasheetId)
-    datasheet.records.create(records).then((response) => {
+    datasheet.records.create(records).then(async (response) => {
       if (response.success) {
         console.log('写入vika成功：', response.code)
       } else {
         console.error('调用vika写入接口成功，写入vika失败：', response)
+        count = count + 1
+        if (count < 2) {
+          await this.createRecords(datasheetId, records, count)
+        }
       }
-    }).catch(err => { console.error('调用vika写入接口失败：', err) })
+    }).catch(async err => {
+      console.error('调用vika写入接口失败：', err)
+      count = count + 1
+      if (count < 2) {
+        await this.createRecords(datasheetId, records, count)
+      }
+    })
   }
 
   async upload(file) {
