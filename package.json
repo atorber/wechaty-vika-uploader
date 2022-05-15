@@ -1,6 +1,6 @@
 {
   "name": "wechaty-vika-link",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Vika link for wechaty",
   "main": "src/index.js",
   "files": [
