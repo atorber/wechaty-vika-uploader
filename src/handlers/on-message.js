@@ -139,9 +139,6 @@ async function onMessage (message, vika) {
         })
       } catch {
         console.debug('上传失败：', filePath)
-        fs.unlink(filePath, (err) => {
-          console.debug('上传vika失败删除文件', filePath, err)
-        })
       }
 
     }
