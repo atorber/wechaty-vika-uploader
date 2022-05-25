@@ -480,7 +480,7 @@ class VikaBot {
   }
 
   async upload(file) {
-    const datasheet = this.vika.datasheet(this.datasheetId);
+    const datasheet = this.vika.datasheet(this.sheets.Message.id);
     try {
       const resp = await datasheet.upload(file)
       if (resp.success) {
