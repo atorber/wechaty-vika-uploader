@@ -8,15 +8,15 @@ let wait = ms => new Promise(resolve => setTimeout(resolve, ms));
 
 class VikaBot {
   constructor(config) {
-    if (!config.token) {
+    if (!config.token && !process.env['VIKA_TOKEN']) {
       console.error('未配置token，请在config.ts中配置')
-    } else if (!config.spaceName) {
+    } else if (!config.spaceName && !process.env['VIKA_SPACENAME']) {
       console.error('未配置空间名称，请在config.ts中配置')
     } else {
-      this.token = config.token
+      this.token = config.token || process.env['VIKA_TOKEN']
       this.space = {
-        name: config.spaceName,
-        id: ''
+        name: config.spaceName || process.env['VIKA_SPACENAME'],
+        id: '',
       }
       // {
       //   id: cuid(),
