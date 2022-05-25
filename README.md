@@ -8,18 +8,24 @@ wechaty微信机器人聊天消息备份到维表格vika插件
 
 1. 到 [维格表官网](https://vika.cn/) 注册维格表账号
 
-2. 创建一个名字为 mp-chatbot 的空间
+2. 创建一个维格表空间
 
 3. 获取维格表token
 
 ![vika](./doc/images/vika_token.png)
+
+4. 配置维格表信息
+
+```
+const VIKA_TOKEN = 'xxxxx' // VIKA维格表token
+const VIKA_SPACENAME = 'xxxxx'  // VIKA维格表空间名称
+```
 
 4. 运行如下命令配置环境变量，示例中使用了padlocal，可以自行更换为其他puppet，可以在 [padlocal官网](http://pad-local.com/#/login) 申请7天免费token
 
 ```
 export WECHATY_PUPPET=wechaty-puppet-padlocal
 export WECHATY_PUPPET_PADLOCAL_TOKEN="替换为padloac token"
-export VIKA_TOKEN="替换为维格表token"
 ```
 > 当前版本需要在主程序文件相同目录下新建一个folder文件夹用于存放文件缓存
 
@@ -29,11 +35,7 @@ export VIKA_TOKEN="替换为维格表token"
 npm run ding-dong-bot
 ```
 
-> 首次运行时，会自动在 mp-chatbot 空间默认创建一个名为ChatRecord的表，如果有多个bot也可以使用环境变量指定表名称（只有一个bot时建议不指定）
-
-```
-export VIKA_DATASHEETNAME="替换为维格表名称"
-```
+> 首次运行时，会自动在空间下创建Room、Message、Contact、Wechaty、Event 5个系统表，可参考ripe-vika.ts,设置是否同步RoomList和ContactList到维格表
 
 ![vika](./doc/images/vika.png)
 
@@ -44,7 +46,7 @@ export VIKA_DATASHEETNAME="替换为维格表名称"
 安装:
 
 ```
-npm install wechaty-vika-link@latest
+npm install wechaty-vika-link@next
 
 ```
 
