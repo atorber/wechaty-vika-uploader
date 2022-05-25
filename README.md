@@ -21,7 +21,7 @@ const VIKA_TOKEN = 'xxxxx' // VIKA维格表token
 const VIKA_SPACENAME = 'xxxxx'  // VIKA维格表空间名称
 ```
 
-4. 运行如下命令配置环境变量，示例中使用了padlocal，可以自行更换为其他puppet，可以在 [padlocal官网](http://pad-local.com/#/login) 申请7天免费token
+5. 运行如下命令配置环境变量，示例中使用了padlocal，可以自行更换为其他puppet，可以在 [padlocal官网](http://pad-local.com/#/login) 申请7天免费token
 
 ```
 export WECHATY_PUPPET=wechaty-puppet-padlocal
@@ -29,7 +29,7 @@ export WECHATY_PUPPET_PADLOCAL_TOKEN="替换为padloac token"
 ```
 > 当前版本需要在主程序文件相同目录下新建一个folder文件夹用于存放文件缓存
 
-5. 运行 
+6. 运行 
 
 ```
 npm run ding-dong-bot
