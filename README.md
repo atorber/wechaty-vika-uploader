@@ -58,6 +58,12 @@ npm install wechaty-vika-link@next
 
 ## 版本
 
+main v1.0.4
+
+1. 自动创建wechaty类对应的系统表
+2. 支持主动同步群和联系人列表
+3. 表字段按wechaty类一一对应
+
 v0.17.0
 
 1. 变更表字段名称为英文命名方式
